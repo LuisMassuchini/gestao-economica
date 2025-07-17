@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany; // Importe a classe
 class EconomicGroup extends Model
 {
     use HasFactory;
-
+    protected $fillable = ['name'];
     /**
      * Get all of the flags for the EconomicGroup
      *
