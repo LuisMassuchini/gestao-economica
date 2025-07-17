@@ -11,6 +11,12 @@ class Unit extends Model
 {
     /** @use HasFactory<\Database\Factories\UnitFactory> */
     use HasFactory;
+     protected $fillable = [
+        'trading_name',
+        'company_name',
+        'cnpj',
+        'flag_id',
+    ];
 
     public function flag(): BelongsTo
     {

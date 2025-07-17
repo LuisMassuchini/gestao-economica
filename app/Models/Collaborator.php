@@ -11,6 +11,13 @@ class Collaborator extends Model
     /** @use HasFactory<\Database\Factories\CollaboratorFactory> */
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'email',
+        'cpf',
+        'unit_id',
+    ];
+
     public function unit(): BelongsTo
     {
         return $this->belongsTo(Unit::class);

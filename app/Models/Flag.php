@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Flag extends Model
 {
     use HasFactory;
+    protected $fillable = ['name', 'economic_group_id'];
 
     /**
      * Get the economic group that owns the Flag

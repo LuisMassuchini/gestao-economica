@@ -18,6 +18,18 @@
                     <x-nav-link :href="route('economic-groups.index')" :active="request()->routeIs('economic-groups.*')">
                         {{ __('Grupos Econômicos') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('flags.index')" :active="request()->routeIs('flags.*')">
+                        {{ __('Bandeiras') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('units.index')" :active="request()->routeIs('units.*')">
+                        {{ __('Unidades') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('collaborators.index')" :active="request()->routeIs('collaborators.*')">
+                        {{ __('Colaboradores') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('reports.collaborators')" :active="request()->routeIs('reports.*')">
+                        {{ __('Relatórios') }}
+                    </x-nav-link>
                 </div>
             </div>
 

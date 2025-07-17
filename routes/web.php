@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ReportController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -16,7 +17,14 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+
      Route::resource('economic-groups', App\Http\Controllers\EconomicGroupController::class);
+     Route::resource('flags', App\Http\Controllers\FlagController::class);
+      Route::resource('units', App\Http\Controllers\UnitController::class);
+      Route::resource('collaborators', App\Http\Controllers\CollaboratorController::class);
+      Route::get('reports/collaborators', [ReportController::class, 'collaborators'])->name('reports.collaborators');
+
 });
+
 
 require __DIR__.'/auth.php';
