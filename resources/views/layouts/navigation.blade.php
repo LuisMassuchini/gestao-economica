@@ -30,6 +30,9 @@
                     <x-nav-link :href="route('reports.collaborators')" :active="request()->routeIs('reports.*')">
                         {{ __('Relatórios') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('my-reports.index')" :active="request()->routeIs('my-reports.*')">
+                        {{ __('Meus Relatórios') }}
+                    </x-nav-link>
                 </div>
             </div>
 

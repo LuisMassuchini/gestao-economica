@@ -2,20 +2,26 @@
 
 namespace App\Exports;
 
+use App\Models\ExportedReport;
 use App\Models\Collaborator;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Events\AfterSheet;
 
-class CollaboratorsExport implements FromQuery, WithHeadings, WithMapping, ShouldQueue
+class CollaboratorsExport implements FromQuery, WithHeadings, WithMapping, ShouldQueue, WithEvents
 {
     protected $filters;
+    protected $reportId;
 
-    // 1. O construtor recebe os filtros
-    public function __construct(array $filters)
+
+
+     public function __construct(array $filters, int $reportId)
     {
         $this->filters = $filters;
+        $this->reportId = $reportId;
     }
 
     // 2. Define os cabeçalhos das colunas
@@ -70,5 +76,18 @@ class CollaboratorsExport implements FromQuery, WithHeadings, WithMapping, Shoul
         }
 
         return $query;
+    }
+
+    public function registerEvents(): array
+    {
+        return [
+            // Este evento é acionado depois de a folha de cálculo ser criada e guardada.
+            AfterSheet::class => function(AfterSheet $event) {
+                $report = ExportedReport::find($this->reportId);
+                if ($report) {
+                    $report->update(['status' => 'completed']);
+                }
+            },
+        ];
     }
 }

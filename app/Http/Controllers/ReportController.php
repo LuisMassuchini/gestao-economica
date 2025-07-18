@@ -9,6 +9,9 @@ use App\Models\Collaborator;
 use App\Models\EconomicGroup;
 use App\Models\Flag;
 use App\Models\Unit;
+use App\Models\ExportedReport;
+use Illuminate\Support\Facades\Auth;
+
 
 class ReportController extends Controller
 {
@@ -51,15 +54,23 @@ class ReportController extends Controller
             'units'
         ));
     }
-     public function exportCollaborators(Request $request)
-{
-    $fileName = 'reports/collaborators_' . auth()->id() . '_' . date('Y-m-d_H-i-s') . '.xlsx';
+    public function exportCollaborators(Request $request)
+    {
+        // 1. Criar o registo na base de dados primeiro
+        $report = ExportedReport::create([
+            'user_id' => Auth::id(),
+            'file_path' => '', // Deixamos o caminho vazio por agora
+            'status' => 'pending',
+        ]);
 
-    // A grande mudança: de Excel::download para Excel::queue
-    // O método queue irá guardar o ficheiro no disco que definirmos (por defeito, 'local' em storage/app).
-    Excel::queue(new CollaboratorsExport($request->all()), $fileName);
+        $fileName = 'reports/collaborators_' . $report->id . '.xlsx';
 
-    // Redireciona o utilizador de volta com uma mensagem de feedback imediato.
-    return redirect()->back()->with('success', 'O seu relatório está a ser gerado! Estará disponível para download em breve.');
-}
+        // Atualizamos o registo com o caminho do ficheiro
+        $report->update(['file_path' => $fileName]);
+
+        // 2. Passamos o ID do relatório para a nossa classe de exportação
+        Excel::queue(new CollaboratorsExport($request->all(), $report->id), $fileName);
+
+        return redirect()->back()->with('success', 'O seu relatório está a ser gerado! Verifique a página "Meus Relatórios" em breve.');
+    }
 }

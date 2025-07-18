@@ -24,6 +24,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('collaborators', App\Http\Controllers\CollaboratorController::class);
     Route::get('reports/collaborators', [ReportController::class, 'collaborators'])->name('reports.collaborators');
     Route::get('reports/collaborators/export', [ReportController::class, 'exportCollaborators'])->name('reports.collaborators.export');
+    Route::get('my-reports', [ExportedReportController::class, 'index'])->name('my-reports.index');
+    Route::get('my-reports/{report}/download', [ExportedReportController::class, 'download'])->name('my-reports.download');
 });
 
 
