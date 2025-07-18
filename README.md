@@ -1,61 +1,117 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Sistema de Gestão de Grupos Económicos
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este é um sistema web desenvolvido em Laravel para a gestão de uma estrutura corporativa hierárquica, incluindo Grupos Económicos, Bandeiras, Unidades e Colaboradores.
 
-## About Laravel
+## Finalidade do Sistema
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Este sistema foi projetado para ser uma ferramenta central de **Gestão de Estrutura Organizacional e de Recursos Humanos (RH)**, ideal para empresas com uma estrutura complexa. Ele resolve o problema de ter informações críticas de RH espalhadas em múltiplas planilhas e sistemas legados, oferecendo uma fonte única de verdade, controlo de acesso e um rastro de auditoria completo.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Para ilustrar, imagine um grande grupo de varejo:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Grupo Econômico:** "Varejo Brasil S.A." (a holding que controla tudo).
+- **Bandeiras:** "Supermercados Luxo", "Lojas Populares", "Eletrônicos Tech" (marcas diferentes pertencentes ao mesmo grupo).
+- **Unidades:** "Loja Luxo - Shopping Morumbi", "Loja Popular - Centro" (as lojas físicas, cada uma com seu CNPJ e associada a uma bandeira).
+- **Colaboradores:** "João da Silva", "Maria Oliveira" (os funcionários, cada um alocado na sua unidade de trabalho).
 
-## Learning Laravel
+O sistema permite que o RH e os gestores administrem esta estrutura complexa de forma centralizada e segura.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Funcionalidades
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- **Autenticação:** Sistema completo de registo e login de utilizadores.
+- **Gestão de Grupos Económicos:** CRUD completo (Criar, Ler, Atualizar, Apagar).
+- **Gestão de Bandeiras:** CRUD completo com associação a um Grupo Económico.
+- **Gestão de Unidades:** CRUD completo com associação a uma Bandeira.
+- **Gestão de Colaboradores:** CRUD completo com associação a uma Unidade.
+- **Relatório de Colaboradores:** Página de relatórios com filtros dinâmicos e em cascata.
+- **Auditoria:** Registo automático de todas as criações, atualizações e exclusões de dados no sistema.
+- **Exportação para Excel:** Funcionalidade de exportação dos relatórios filtrados.
+- **Processamento em Segundo Plano:** As exportações de relatórios são processadas em filas para não bloquear o utilizador.
+- **Interface Dinâmica:** Utilização de Livewire para filtros e interações em tempo real sem recarregar a página.
+- **Testes Automatizados:** Cobertura de testes de funcionalidade para garantir a integridade e estabilidade da aplicação.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Tecnologias Utilizadas
 
-## Laravel Sponsors
+- **Backend:** Laravel 10
+- **Frontend:** Blade, Tailwind CSS, Alpine.js, Livewire
+- **Base de Dados:** MySQL
+- **Ambiente de Desenvolvimento:** Docker com Laravel Sail
+- **Testes:** Pest (PHPUnit)
+- **Outros Pacotes:**
+    - `laravel/breeze` para autenticação.
+    - `owen-it/laravel-auditing` para o sistema de auditoria.
+    - `maatwebsite/excel` para exportação de dados.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Pré-requisitos
 
-### Premium Partners
+- Docker
+- Composer
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## Instalação
 
-## Contributing
+Siga os passos abaixo para configurar o ambiente de desenvolvimento localmente.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+1.  **Clonar o Repositório**
+    ```bash
+    git clone [https://github.com/seu-usuario/seu-repositorio.git](https://github.com/seu-usuario/seu-repositorio.git)
+    cd seu-repositorio
+    ```
 
-## Code of Conduct
+2.  **Copiar o Ficheiro de Ambiente**
+    ```bash
+    cp .env.example .env
+    ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+3.  **Instalar Dependências do PHP**
+    ```bash
+    docker run --rm \
+        -u "$(id -u):$(id -g)" \
+        -v "$(pwd):/var/www/html" \
+        -w /var/www/html \
+        laravelsail/php82-composer:latest \
+        composer install --ignore-platform-reqs
+    ```
 
-## Security Vulnerabilities
+4.  **Iniciar os Contentores do Sail**
+    Isto irá iniciar o servidor web, a base de dados e outros serviços.
+    ```bash
+    ./vendor/bin/sail up -d
+    ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+5.  **Gerar a Chave da Aplicação**
+    ```bash
+    ./vendor/bin/sail artisan key:generate
+    ```
 
-## License
+6.  **Executar as Migrações e Seeders**
+    Isto irá criar todas as tabelas na base de dados.
+    ```bash
+    ./vendor/bin/sail artisan migrate --seed
+    ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+7.  **Instalar Dependências do Frontend e Compilar**
+    ```bash
+    ./vendor/bin/sail npm install
+    ./vendor/bin/sail npm run dev
+    ```
+
+8.  **Iniciar o Worker da Fila (Opcional, para desenvolvimento)**
+    Para que as exportações de Excel funcionem, precisa de ter um worker a correr num terminal separado.
+    ```bash
+    ./vendor/bin/sail artisan queue:work
+    ```
+
+A aplicação estará agora acessível em **[http://localhost](http://localhost)**.
+
+## Como Usar
+
+1.  Acesse **[http://localhost](http://localhost)** no seu navegador.
+2.  Clique em **"Register"** no canto superior direito para criar uma nova conta de utilizador.
+3.  Após o registo, será redirecionado para o painel de controlo (dashboard).
+4.  Utilize o menu de navegação no topo para aceder às diferentes secções de gestão (Grupos Económicos, Bandeiras, Relatórios, etc.).
+
+## Testes
+
+O projeto tem uma suíte de testes automatizados para garantir a qualidade do código. Para executar todos os testes, corra o seguinte comando:
+
+```bash
+./vendor/bin/sail artisan test
