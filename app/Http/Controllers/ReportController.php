@@ -52,11 +52,14 @@ class ReportController extends Controller
         ));
     }
      public function exportCollaborators(Request $request)
-    {
-        // Gera um nome de ficheiro dinâmico com a data
-        $fileName = 'relatorio_colaboradores_' . date('Y-m-d_H-i-s') . '.xlsx';
+{
+    $fileName = 'reports/collaborators_' . auth()->id() . '_' . date('Y-m-d_H-i-s') . '.xlsx';
 
-        // Aciona o download, passando a nossa classe de exportação com os filtros da requisição
-        return Excel::download(new CollaboratorsExport($request->all()), $fileName);
-    }
+    // A grande mudança: de Excel::download para Excel::queue
+    // O método queue irá guardar o ficheiro no disco que definirmos (por defeito, 'local' em storage/app).
+    Excel::queue(new CollaboratorsExport($request->all()), $fileName);
+
+    // Redireciona o utilizador de volta com uma mensagem de feedback imediato.
+    return redirect()->back()->with('success', 'O seu relatório está a ser gerado! Estará disponível para download em breve.');
+}
 }

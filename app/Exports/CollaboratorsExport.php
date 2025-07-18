@@ -6,8 +6,9 @@ use App\Models\Collaborator;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class CollaboratorsExport implements FromQuery, WithHeadings, WithMapping
+class CollaboratorsExport implements FromQuery, WithHeadings, WithMapping, ShouldQueue
 {
     protected $filters;
 
