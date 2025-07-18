@@ -18,7 +18,7 @@ class CollaboratorsExport implements FromQuery, WithHeadings, WithMapping, Shoul
 
 
 
-     public function __construct(array $filters, int $reportId)
+    public function __construct(array $filters, int $reportId)
     {
         $this->filters = $filters;
         $this->reportId = $reportId;
@@ -81,8 +81,8 @@ class CollaboratorsExport implements FromQuery, WithHeadings, WithMapping, Shoul
     public function registerEvents(): array
     {
         return [
-            // Este evento é acionado depois de a folha de cálculo ser criada e guardada.
-            AfterSheet::class => function(AfterSheet $event) {
+            // Este evento atualiza o estado para 'completed' quando o trabalho termina.
+            AfterSheet::class => function (AfterSheet $event) {
                 $report = ExportedReport::find($this->reportId);
                 if ($report) {
                     $report->update(['status' => 'completed']);

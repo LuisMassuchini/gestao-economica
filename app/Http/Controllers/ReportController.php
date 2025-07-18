@@ -58,19 +58,21 @@ class ReportController extends Controller
     {
         // 1. Criar o registo na base de dados primeiro
         $report = ExportedReport::create([
-            'user_id' => Auth::id(),
+            'user_id' => auth()->id(),
             'file_path' => '', // Deixamos o caminho vazio por agora
             'status' => 'pending',
         ]);
 
+        // Usamos o ID do relatório para garantir um nome de ficheiro único
         $fileName = 'reports/collaborators_' . $report->id . '.xlsx';
 
-        // Atualizamos o registo com o caminho do ficheiro
+        // Atualizamos o registo com o caminho final do ficheiro
         $report->update(['file_path' => $fileName]);
 
-        // 2. Passamos o ID do relatório para a nossa classe de exportação
+        // 2. A CORREÇÃO CRUCIAL ESTÁ AQUI:
+        // Garantir que estamos a passar o $report->id como segundo argumento.
         Excel::queue(new CollaboratorsExport($request->all(), $report->id), $fileName);
 
-        return redirect()->back()->with('success', 'O seu relatório está a ser gerado! Verifique a página "Meus Relatórios" em breve.');
+        return redirect()->route('my-reports.index')->with('success', 'O seu relatório foi enviado para processamento! Esta página será atualizada automaticamente.');
     }
 }
