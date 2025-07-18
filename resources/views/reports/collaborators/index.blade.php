@@ -16,10 +16,12 @@
                             <!-- Filtro Grupo Econômico -->
                             <div>
                                 <label for="economic_group_id" class="block text-sm font-medium">Grupo Econômico</label>
-                                <select name="economic_group_id" id="economic_group_id" class="mt-1 block w-full rounded-md shadow-sm border-gray-300 dark:bg-gray-700 dark:border-gray-600">
+                                <select name="economic_group_id" id="economic_group_id"
+                                    class="mt-1 block w-full rounded-md shadow-sm border-gray-300 dark:bg-gray-700 dark:border-gray-600">
                                     <option value="">Todos</option>
-                                    @foreach($economicGroups as $group)
-                                        <option value="{{ $group->id }}" {{ request('economic_group_id') == $group->id ? 'selected' : '' }}>
+                                    @foreach ($economicGroups as $group)
+                                        <option value="{{ $group->id }}"
+                                            {{ request('economic_group_id') == $group->id ? 'selected' : '' }}>
                                             {{ $group->name }}
                                         </option>
                                     @endforeach
@@ -29,10 +31,12 @@
                             <!-- Filtro Bandeira -->
                             <div>
                                 <label for="flag_id" class="block text-sm font-medium">Bandeira</label>
-                                <select name="flag_id" id="flag_id" class="mt-1 block w-full rounded-md shadow-sm border-gray-300 dark:bg-gray-700 dark:border-gray-600">
+                                <select name="flag_id" id="flag_id"
+                                    class="mt-1 block w-full rounded-md shadow-sm border-gray-300 dark:bg-gray-700 dark:border-gray-600">
                                     <option value="">Todas</option>
-                                    @foreach($flags as $flag)
-                                        <option value="{{ $flag->id }}" {{ request('flag_id') == $flag->id ? 'selected' : '' }}>
+                                    @foreach ($flags as $flag)
+                                        <option value="{{ $flag->id }}"
+                                            {{ request('flag_id') == $flag->id ? 'selected' : '' }}>
                                             {{ $flag->name }}
                                         </option>
                                     @endforeach
@@ -42,10 +46,12 @@
                             <!-- Filtro Unidade -->
                             <div>
                                 <label for="unit_id" class="block text-sm font-medium">Unidade</label>
-                                <select name="unit_id" id="unit_id" class="mt-1 block w-full rounded-md shadow-sm border-gray-300 dark:bg-gray-700 dark:border-gray-600">
+                                <select name="unit_id" id="unit_id"
+                                    class="mt-1 block w-full rounded-md shadow-sm border-gray-300 dark:bg-gray-700 dark:border-gray-600">
                                     <option value="">Todas</option>
-                                    @foreach($units as $unit)
-                                        <option value="{{ $unit->id }}" {{ request('unit_id') == $unit->id ? 'selected' : '' }}>
+                                    @foreach ($units as $unit)
+                                        <option value="{{ $unit->id }}"
+                                            {{ request('unit_id') == $unit->id ? 'selected' : '' }}>
                                             {{ $unit->trading_name }}
                                         </option>
                                     @endforeach
@@ -53,10 +59,17 @@
                             </div>
                         </div>
                         <div class="mt-4 flex items-center space-x-4">
-                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            <button type="submit"
+                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                 Filtrar
                             </button>
-                            <a href="{{ route('reports.collaborators') }}" class="text-gray-600 dark:text-gray-400 hover:underline">
+                            <a href="{{ route('reports.collaborators.export', request()->query()) }}"
+                                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                                Exportar para Excel
+                            </a>
+
+                            <a href="{{ route('reports.collaborators') }}"
+                                class="text-gray-600 dark:text-gray-400 hover:underline">
                                 Limpar Filtros
                             </a>
                         </div>
@@ -71,26 +84,35 @@
                         <table class="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-50 dark:bg-gray-700">
                                 <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Colaborador</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">E-mail</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Unidade</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Bandeira</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Grupo</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                                        Colaborador</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">E-mail
+                                    </th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Unidade
+                                    </th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                                        Bandeira</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Grupo
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200">
                                 @forelse($collaborators as $collaborator)
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $collaborator->name }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $collaborator->email }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $collaborator->unit->trading_name }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $collaborator->unit->flag->name }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $collaborator->unit->flag->economicGroup->name }}</td>
-                                </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap">{{ $collaborator->name }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">{{ $collaborator->email }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">{{ $collaborator->unit->trading_name }}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">{{ $collaborator->unit->flag->name }}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            {{ $collaborator->unit->flag->economicGroup->name }}</td>
+                                    </tr>
                                 @empty
-                                <tr>
-                                    <td colspan="5" class="px-6 py-4 text-center">Nenhum colaborador encontrado com os filtros aplicados.</td>
-                                </tr>
+                                    <tr>
+                                        <td colspan="5" class="px-6 py-4 text-center">Nenhum colaborador encontrado
+                                            com os filtros aplicados.</td>
+                                    </tr>
                                 @endforelse
                             </tbody>
                         </table>

@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
+use OwenIt\Auditing\Contracts\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Unit extends Model
+class Unit extends Model implements Auditable
 {
     /** @use HasFactory<\Database\Factories\UnitFactory> */
-    use HasFactory;
+    use HasFactory, \OwenIt\Auditing\Auditable;
      protected $fillable = [
         'trading_name',
         'company_name',

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Exports\CollaboratorsExport;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Collaborator;
 use App\Models\EconomicGroup;
 use App\Models\Flag;
@@ -48,5 +50,13 @@ class ReportController extends Controller
             'flags',
             'units'
         ));
+    }
+     public function exportCollaborators(Request $request)
+    {
+        // Gera um nome de ficheiro dinâmico com a data
+        $fileName = 'relatorio_colaboradores_' . date('Y-m-d_H-i-s') . '.xlsx';
+
+        // Aciona o download, passando a nossa classe de exportação com os filtros da requisição
+        return Excel::download(new CollaboratorsExport($request->all()), $fileName);
     }
 }
